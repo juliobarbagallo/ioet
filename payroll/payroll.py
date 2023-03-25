@@ -19,8 +19,8 @@ class Payroll:
         """
         
         #TODO: iterate by employees.
-        employee = {"name": "tito", "schedule": "MO09:00-12:00,WE10:00-12:00"}
-        total_pay = 75
+        employee = {"name": "RENE", "schedule": "MO10:00-12:00,TU10:00-12:00,TH01:00-03:00,SA14:00-18:00,SU20:00-21:00"}
+        total_pay = 215
         print(f"The amount to pay {employee['name']} is: {total_pay} USD")
 
     def read_input_file(self, file_name):
