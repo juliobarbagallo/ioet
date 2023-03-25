@@ -9,7 +9,7 @@ class PayrollTest(unittest.TestCase):
 
     @patch('sys.stdout', new_callable=StringIO)
     def test_calculate_pay(self, mock_stdout):
-        self.payroll._calculate_pay()
+        self.payroll.calculate_pay()
         expected_output = "The amount to pay RENE is: 215 USD\n"
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
