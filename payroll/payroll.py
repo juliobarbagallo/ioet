@@ -33,14 +33,21 @@ class Payroll:
 
     def read_input_file(self, file_name):
         employees = []
-        with open(file_name, "r") as f:
-            for line in f.readlines():
-                name, schedule_str = line.strip().split("=")
-                schedule = {}
-                for item in schedule_str.split(","):
-                    day, time = item[:2], item[2:]
-                    if day not in schedule:
-                        schedule[day] = []
-                    schedule[day].append(time)
-                employees.append(Employee(name, schedule))
+        try:
+            with open(file_name, "r") as f:
+                for line in f.readlines():
+                    name, schedule_str = line.strip().split("=")
+                    schedule = {}
+                    for item in schedule_str.split(","):
+                        day, time = item[:2], item[2:]
+                        if day not in schedule:
+                            schedule[day] = []
+                        schedule[day].append(time)
+                    employees.append(Employee(name, schedule))
+        except FileNotFoundError:
+            print(f"ERROR: File {file_name} not found")
+            return []
+        except ValueError as e:
+            print(f"ERROR: {e}")
+            return []
         return employees
