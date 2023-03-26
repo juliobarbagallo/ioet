@@ -2,6 +2,7 @@ import unittest
 from payroll.payroll import Payroll
 from employee.employee import Employee
 
+
 class TestPayroll(unittest.TestCase):
     def test_read_input_file(self):
         payroll = Payroll("input.txt")
@@ -27,12 +28,10 @@ class TestPayroll(unittest.TestCase):
         self.assertEqual(tito.schedule["MO"], ["09:00-12:00"])
         self.assertEqual(tito.schedule["WE"], ["10:00-12:00"])
 
-
     def test_file_not_found(self):
         file = "non_existing.txt"
         payroll = Payroll(file)
         self.assertEqual(payroll.read_input_file(file), [])
-
 
     def test_payroll_calculation(self):
         payroll = Payroll("input.txt")
@@ -46,13 +45,14 @@ class TestPayroll(unittest.TestCase):
         self.assertEqual(payroll.employees[1].name, "ASTRID")
         self.assertEqual(payroll.employees[2].name, "TITO")
 
+
 class TestEmployee(unittest.TestCase):
     def test_employee_class(self):
         employee = Employee("John", "MO10:00-12:00")
         assert employee.name == "John"
         assert employee.schedule == "MO10:00-12:00"
         assert employee.amount_to_earn == 0
-        
+
         employee.set_amount_to_earn(100)
         assert employee.get_amount_to_earn() == 100
 
