@@ -1,7 +1,9 @@
 from employee.employee import Employee
+from rates.rates import Rates
 
 
-class Payroll:
+class Payroll(Rates):
+    MINUTES_PER_HOUR = 60
     def __init__(self, file_name):
         self.rates = {
             "MO": [(0, 540, 25), (540, 1080, 15), (1080, 1440, 20)],
@@ -18,19 +20,27 @@ class Payroll:
         for employee in self.employees:
             total_pay = 0
             for day in employee.schedule:
-                for time in employee.schedule[day]:
-                    start_time, end_time = time.split("-")
-                    start_hour, start_minute = start_time.split(":")
-                    end_hour, end_minute = end_time.split(":")
-                    start_hour, start_minute, end_hour, end_minute = int(start_hour), int(start_minute), int(end_hour), int(end_minute)
-                    start_minutes = start_hour * 60 + start_minute
-                    end_minutes = end_hour * 60 + end_minute
-                    for rate_start, rate_end, rate in self.rates[day]:
-                        overlap_start = max(start_minutes, rate_start)
-                        overlap_end = min(end_minutes, rate_end)
-                        if overlap_start < overlap_end:
-                            total_pay += (overlap_end - overlap_start) / 60 * rate
+                total_pay += self._calculate_pay_by_day(day, employee.schedule[day])
             employee.set_amount_to_earn(total_pay)
+
+    def _calculate_pay_by_day(self, day, times):
+        total_pay = 0
+        for time in times:
+            start_time, end_time = time.split("-")
+            start_minutes, end_minutes = self._get_minutes(start_time), self._get_minutes(end_time)
+            for rate_start, rate_end, rate in getattr(self, day):
+                overlap_start = max(start_minutes, rate_start)
+                overlap_end = min(end_minutes, rate_end)
+                if overlap_start < overlap_end:
+                    total_pay += self._calculate_pay_by_time_period(overlap_start, overlap_end, rate)
+        return total_pay
+
+    def _calculate_pay_by_time_period(self, start_minutes, end_minutes, rate):
+        return (end_minutes - start_minutes) / self.MINUTES_PER_HOUR * rate
+
+    def _get_minutes(self, time):
+        hour, minute = map(int, time.split(":"))
+        return hour * self.MINUTES_PER_HOUR + minute
 
     def read_input_file(self, file_name):
         employees = []
