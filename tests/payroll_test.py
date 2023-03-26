@@ -1,5 +1,6 @@
 import unittest
 from payroll.payroll import Payroll
+from employee.employee import Employee
 
 class TestPayroll(unittest.TestCase):
     def test_read_input_file(self):
@@ -31,6 +32,30 @@ class TestPayroll(unittest.TestCase):
         file = "non_existing.txt"
         payroll = Payroll(file)
         self.assertEqual(payroll.read_input_file(file), [])
+
+
+    def test_payroll_calculation(self):
+        payroll = Payroll("input.txt")
+        payroll.calculate_pay()
+
+        assert payroll.employees[0].get_amount_to_earn() == 215.0
+        assert payroll.employees[1].get_amount_to_earn() == 85.0
+        assert payroll.employees[2].get_amount_to_earn() == 75.0
+
+        self.assertEqual(payroll.employees[0].name, "RENE")
+        self.assertEqual(payroll.employees[1].name, "ASTRID")
+        self.assertEqual(payroll.employees[2].name, "TITO")
+
+class TestEmployee(unittest.TestCase):
+    def test_employee_class(self):
+        employee = Employee("John", "MO10:00-12:00")
+        assert employee.name == "John"
+        assert employee.schedule == "MO10:00-12:00"
+        assert employee.amount_to_earn == 0
+        
+        employee.set_amount_to_earn(100)
+        assert employee.get_amount_to_earn() == 100
+
 
 if __name__ == "__main__":
     unittest.main()
