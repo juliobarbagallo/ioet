@@ -1,7 +1,7 @@
 from payroll.payroll import Payroll
 from utils.utils import calculate_payroll, add_employee, export_payroll_report
 
-if __name__ == "__main__":      
+if __name__ == "__main__":
     payroll = Payroll("input.txt")
     options = {
         "1": lambda: calculate_payroll(payroll),
