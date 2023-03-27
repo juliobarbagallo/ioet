@@ -5,8 +5,8 @@ from employee.employee import Employee
 
 class TestPayroll(unittest.TestCase):
     def test_read_input_file(self):
-        payroll = Payroll("input.txt")
-        employees = payroll.read_input_file("input.txt")
+        payroll = Payroll("./tests/input.txt")
+        employees = payroll.read_input_file("./tests/input.txt")
         self.assertEqual(len(employees), 3)
 
         rene = employees[0]

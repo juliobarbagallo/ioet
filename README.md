@@ -1,3 +1,5 @@
+[![Python application](https://github.com/juliobarbagallo/ioet/actions/workflows/python-app.yml/badge.svg)](https://github.com/juliobarbagallo/ioet/actions/workflows/python-app.yml)
+
 # Employee Payment Calculator
 
 This project is a simple employee payment calculator that takes a list of employees and their work hours as input, and calculates the amount to pay each employee based on their work schedule.
