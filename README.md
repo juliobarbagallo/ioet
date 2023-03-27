@@ -35,3 +35,9 @@ python app.py
 python tests/payroll_test.py
 ```
 
+## Description
+
+The first approach in order to solve the exercise was to see how I can handle the working time frames. So I came in with the tuple structure and thinking in minutes, so I made the class Rates at rates/rates.py, so each day has a list of tuples, where those tuples have the start, the end of the work times and the rate for that range. So then we can iterate for it and sum it.So once we have that, the start point was to read and process the input.txt file, with the data to be processed. The Payroll class handles this with the read_input_file, which opens the input.txt file, and iterates the file's lines and splits them to get the employee name and the schedule, so we can have an array, employees of objects Employees.
+Then all the calculations happen at Payroll.calculate_pay(), which iterates the employees array and for each employee on the array sets the amount to earn using the setter Employee.set_amount_to_earn(). That is pretty much the logict.
+Regarding the structure, it's all OOP, delegating the core of it to Employee and Payroll classes and everything handled by app.py.The tests were done using unittest and everything was splitted in packages in different directories.
+
