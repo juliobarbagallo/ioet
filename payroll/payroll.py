@@ -4,6 +4,7 @@ from rates.rates import Rates
 
 class Payroll(Rates):
     MINUTES_PER_HOUR = 60
+    
     def __init__(self, file_name):
         self.rates = {
             "MO": [(0, 540, 25), (540, 1080, 15), (1080, 1440, 20)],
